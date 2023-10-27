@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-
+import { useState } from "react";
+import Fuse from "fuse.js";
 //
 import { getGovernmentWebsites } from "../utils/apis";
 
@@ -15,15 +16,38 @@ export default function GovernmentWebsitesPage() {
     initialData: [],
   });
 
-  //
+  const [searchQuery, setSearchQuery] = useState("");
+  const fuseOptions = {
+    keys: ["name", "description"],
+    threshold: 0.3,
+    ignoreLocation: true,
+  };
+
+  const fuse = new Fuse(data, fuseOptions);
+
+  const searchWebsites = (query: string) => {
+    const results = fuse.search(query);
+    const filteredData = results.map((result) => result.item);
+    return filteredData;
+  };
+
+  const filteredData = searchQuery ? searchWebsites(searchQuery) : data || [];
+
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <p className="text-center text-3xl">Government websites in Nepal</p>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="mt-5 rounded-sm px-3 py-2 text-black"
+      />
 
       {isFetching && <p>Loading data...</p>}
 
       <div className="mt-10 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-10">
-        {data.map((govWebsite) => (
+        {filteredData.map((govWebsite) => (
           <div
             key={govWebsite.name}
             className="group col-span-1 flex flex-col justify-between rounded-sm bg-primary-400 p-3 transition-all duration-200 hover:scale-[1.02] hover:bg-primary-300"
