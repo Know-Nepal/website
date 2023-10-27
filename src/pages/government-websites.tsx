@@ -35,7 +35,7 @@ export default function GovernmentWebsitesPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-center text-3xl">Government websites in Nepal</p>
+      <p className="text-center text-3xl">Government Websites in Nepal</p>
       <input
         type="text"
         placeholder="Search..."
@@ -74,6 +74,8 @@ export default function GovernmentWebsitesPage() {
             <p className="mb-3 mt-10 text-center">
               <a
                 href={govWebsite.url}
+                rel="noopener"
+                target="_blank"
                 className="rounded-sm bg-highlight px-3 py-2 text-gray-900"
               >
                 Visit website
