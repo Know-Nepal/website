@@ -1,3 +1,5 @@
+import Fuse from "fuse.js";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //
@@ -17,11 +19,18 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 //
 import { getTechCompanies } from "../utils/apis";
 
+//
+import type { IApiTechCompany } from "../types/apis.types";
+
 /**
  *
  */
 export default function TechCompaniesPage() {
-  const { data, isFetching } = useQuery({
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredItems, setFilteredItems] = useState<IApiTechCompany[]>([]);
+
+  //
+  const { data: companiesData } = useQuery({
     queryKey: ["get-companies-list"],
     queryFn: async () => {
       return getTechCompanies();
@@ -30,14 +39,36 @@ export default function TechCompaniesPage() {
   });
 
   //
+  useEffect(() => {
+    const fuseList = new Fuse(companiesData, {
+      keys: ["name"],
+      threshold: 0.3,
+      ignoreLocation: true,
+    });
+
+    const finalItemList = searchTerm
+      ? fuseList.search(searchTerm).map((res) => res.item)
+      : companiesData;
+
+    setFilteredItems(finalItemList);
+  }, [companiesData, searchTerm]);
+
+  //
   return (
     <div>
       <p className="text-center text-3xl">Tech companies in Nepal</p>
 
-      {isFetching && <p>Loading data...</p>}
+      <div className="my-10 flex justify-center">
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search for tech company"
+          className="focus:ring-hightlght w-full max-w-lg rounded-sm bg-gray-800 px-3 py-2 text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-highlight"
+        />
+      </div>
 
       <div className="mt-10 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-10">
-        {data.map((company) => (
+        {filteredItems.map((company) => (
           <div
             key={company.name}
             className="col-span-1 flex flex-col justify-between rounded-sm bg-primary-400 p-3 transition-all duration-200 hover:scale-[1.02] hover:bg-primary-300"
