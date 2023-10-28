@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-
+import { useState } from "react";
+import Fuse from "fuse.js";
 //
 import { getGovernmentWebsites } from "../utils/apis";
 
@@ -7,7 +8,7 @@ import { getGovernmentWebsites } from "../utils/apis";
  *
  */
 export default function GovernmentWebsitesPage() {
-  const { data, isFetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ["get-government-websites"],
     queryFn: async () => {
       return getGovernmentWebsites();
@@ -15,15 +16,38 @@ export default function GovernmentWebsitesPage() {
     initialData: [],
   });
 
-  //
+  const [searchQuery, setSearchQuery] = useState("");
+  const fuseOptions = {
+    keys: ["name"],
+    threshold: 0.3,
+    ignoreLocation: true,
+  };
+
+  const fuse = new Fuse(data, fuseOptions);
+
+  const searchWebsites = (query: string) => {
+    const results = fuse.search(query);
+    const filteredData = results.map((result) => result.item);
+    return filteredData;
+  };
+
+  const filteredData = searchQuery ? searchWebsites(searchQuery) : data || [];
+
   return (
     <div>
-      <p className="text-center text-3xl">Government Websites of Nepal</p>
-
-      {isFetching && <p>Loading data...</p>}
+      <p className="text-center text-3xl">Government Websites in Nepal</p>
+      <div className="my-10 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search for government website..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="focus:ring-hightlght w-full max-w-lg rounded-sm bg-gray-800 px-3 py-2 text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-highlight"
+        />
+      </div>
 
       <div className="mt-10 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-10">
-        {data.map((govWebsite) => (
+        {filteredData.map((govWebsite) => (
           <div
             key={govWebsite.name}
             className="group col-span-1 flex flex-col justify-between rounded-sm bg-primary-400 p-3 transition-all duration-200 hover:scale-[1.02] hover:bg-primary-300"
