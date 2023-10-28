@@ -39,7 +39,7 @@ export default function GovernmentWebsitesPage() {
       <div className="my-10 flex justify-center">
         <input
           type="text"
-          placeholder="Search for govenment website..."
+          placeholder="Search for government website..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="focus:ring-hightlght w-full max-w-lg rounded-sm bg-gray-800 px-3 py-2 text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-highlight"
