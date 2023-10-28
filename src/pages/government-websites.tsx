@@ -8,7 +8,7 @@ import { getGovernmentWebsites } from "../utils/apis";
  *
  */
 export default function GovernmentWebsitesPage() {
-  const { data, isFetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ["get-government-websites"],
     queryFn: async () => {
       return getGovernmentWebsites();
@@ -34,17 +34,17 @@ export default function GovernmentWebsitesPage() {
   const filteredData = searchQuery ? searchWebsites(searchQuery) : data || [];
 
   return (
-    <div className="flex flex-col items-center">
+    <div>
       <p className="text-center text-3xl">Government Websites in Nepal</p>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="mt-5 rounded-sm px-3 py-2 text-black"
-      />
-
-      {isFetching && <p>Loading data...</p>}
+      <div className="my-10 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search for govenment website..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="focus:ring-hightlght w-full max-w-lg rounded-sm bg-gray-800 px-3 py-2 text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-highlight"
+        />
+      </div>
 
       <div className="mt-10 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-10">
         {filteredData.map((govWebsite) => (
