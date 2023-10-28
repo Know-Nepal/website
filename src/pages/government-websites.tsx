@@ -18,7 +18,7 @@ export default function GovernmentWebsitesPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const fuseOptions = {
-    keys: ["name", "description"],
+    keys: ["name"],
     threshold: 0.3,
     ignoreLocation: true,
   };
