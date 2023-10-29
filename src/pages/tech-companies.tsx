@@ -77,8 +77,8 @@ export default function TechCompaniesPage() {
               <div className="flex justify-center">
                 <img
                   src={`https://raw.githubusercontent.com/Know-Nepal/tech-companies/main/logos/${company.logoName}`}
-                  width={128}
-                  height={128}
+                  width={96}
+                  height={96}
                   className="h-24 w-24 rounded object-cover"
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
