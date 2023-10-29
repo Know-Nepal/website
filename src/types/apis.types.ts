@@ -1,5 +1,6 @@
 export interface IApiTechCompany {
   name: string;
+  logoName: string;
   establishedAt: number;
   location: string;
   website: string;

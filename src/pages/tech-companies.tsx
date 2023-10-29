@@ -76,10 +76,14 @@ export default function TechCompaniesPage() {
             <div>
               <div className="flex justify-center">
                 <img
-                  src={`https://ui-avatars.com/api/?bold=true&background=random&color=ffffff&name=${company.name}`}
-                  width={96}
-                  height={96}
-                  className="h-24 w-24 rounded-full object-cover"
+                  src={`https://raw.githubusercontent.com/Know-Nepal/tech-companies/main/logos/${company.logoName}`}
+                  width={128}
+                  height={128}
+                  className="h-24 w-24 rounded object-cover"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = `https://ui-avatars.com/api/?bold=true&background=random&color=ffffff&name=${company.name}`;
+                  }}
                 />
               </div>
 
