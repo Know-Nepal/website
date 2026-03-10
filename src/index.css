@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  @apply bg-[#0F0913] text-[#EFEDEF];
+  @apply bg-[#0F0913] font-sans text-[#EFEDEF];
+}
+
+/* Fade-in utility for elements that start invisible */
+.animate-on-load {
+  opacity: 0;
 }

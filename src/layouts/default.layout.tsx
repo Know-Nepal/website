@@ -9,12 +9,12 @@ import AppFooter from "../components/app/footer";
  */
 export default function DefaultLayout() {
   return (
-    <div className="flex h-screen flex-col overflow-y-auto overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <AppNavbar />
 
-      <section className="flex-grow px-2 md:px-10">
+      <main className="flex-grow">
         <Outlet />
-      </section>
+      </main>
 
       <AppFooter />
     </div>

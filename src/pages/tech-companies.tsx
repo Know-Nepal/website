@@ -55,8 +55,8 @@ export default function TechCompaniesPage() {
 
   //
   return (
-    <div>
-      <p className="text-center text-3xl">Tech companies in Nepal</p>
+    <div className="px-4 py-6 md:px-10">
+      <p className="text-center text-3xl font-bold">Tech Companies in Nepal</p>
 
       <div className="my-10 flex justify-center">
         <input

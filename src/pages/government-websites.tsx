@@ -34,8 +34,10 @@ export default function GovernmentWebsitesPage() {
   const filteredData = searchQuery ? searchWebsites(searchQuery) : data || [];
 
   return (
-    <div>
-      <p className="text-center text-3xl">Government Websites in Nepal</p>
+    <div className="px-4 py-6 md:px-10">
+      <p className="text-center text-3xl font-bold">
+        Government Websites in Nepal
+      </p>
       <div className="my-10 flex justify-center">
         <input
           type="text"
