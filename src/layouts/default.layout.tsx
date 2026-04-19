@@ -1,21 +1,17 @@
 import { Outlet } from "react-router-dom";
 
-//
 import AppNavbar from "../components/app/navbar";
 import AppFooter from "../components/app/footer";
 
-/**
- *
- */
 export default function DefaultLayout() {
   return (
-    <div className="flex h-screen flex-col overflow-y-auto overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <AppNavbar />
-
-      <section className="flex-grow px-2 md:px-10">
-        <Outlet />
-      </section>
-
+      <main className="flex-grow">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <Outlet />
+        </div>
+      </main>
       <AppFooter />
     </div>
   );

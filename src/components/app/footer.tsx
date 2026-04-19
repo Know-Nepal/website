@@ -1,14 +1,11 @@
-/**
- *
- */
 export default function AppFooter() {
   return (
-    <footer className="px-2 py-5 md:p-10">
-      <div className="mb-5 w-full border-b border-gray-300" />
-
-      <p className="text-center">
-        © {new Date().getFullYear()} Know Nepal. All rights reserved.
-      </p>
+    <footer className="border-t border-white/5 px-4 py-8 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-center text-sm text-gray-600">
+          © {new Date().getFullYear()} Know Nepal. All rights reserved.
+        </p>
+      </div>
     </footer>
   );
 }
