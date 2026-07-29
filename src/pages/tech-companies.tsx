@@ -67,6 +67,7 @@ export default function TechCompaniesPage() {
           <input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Search for tech company"
             placeholder="Search for tech company"
             className="search-input pl-11"
           />
@@ -84,6 +85,7 @@ export default function TechCompaniesPage() {
                 <div className="overflow-hidden rounded-xl ring-1 ring-white/10">
                   <img
                     src={`https://raw.githubusercontent.com/Know-Nepal/tech-companies/main/logos/${company.logoName}`}
+                    alt={`${company.name} logo`}
                     width={96}
                     height={96}
                     className="h-24 w-24 object-cover"

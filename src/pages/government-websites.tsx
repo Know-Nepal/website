@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Fuse from "fuse.js";
 import { HiSearch, HiExternalLink } from "react-icons/hi";
 
@@ -62,15 +62,20 @@ export default function GovernmentWebsitesPage() {
 
   const allItems = data || [];
 
-  const allCategories = [
-    ...new Set(allItems.map((item) => getCategory(item.name))),
-  ].sort();
+  const allCategories = useMemo(
+    () => [...new Set(allItems.map((item) => getCategory(item.name)))].sort(),
+    [allItems],
+  );
 
-  const fuse = new Fuse(allItems, {
-    keys: ["name"],
-    threshold: 0.3,
-    ignoreLocation: true,
-  });
+  const fuse = useMemo(
+    () =>
+      new Fuse(allItems, {
+        keys: ["name"],
+        threshold: 0.3,
+        ignoreLocation: true,
+      }),
+    [allItems],
+  );
 
   const afterSearch = searchQuery
     ? fuse.search(searchQuery).map((r) => r.item)
@@ -105,6 +110,7 @@ export default function GovernmentWebsitesPage() {
           />
           <input
             type="text"
+            aria-label="Search for government website"
             placeholder="Search for government website..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -140,6 +146,7 @@ export default function GovernmentWebsitesPage() {
               <div className="overflow-hidden rounded-full ring-1 ring-white/10">
                 <img
                   src="/nepalLogo.png"
+                  alt={`${govWebsite.name} logo`}
                   width={80}
                   height={80}
                   className="h-20 w-20 object-cover"
