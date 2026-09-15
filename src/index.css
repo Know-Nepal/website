@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-[#0F0913] text-[#EFEDEF];
+@layer base {
+  body {
+    @apply bg-[#0F0913] font-sans text-[#EFEDEF] antialiased;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-white/5 bg-primary-400 p-5 shadow-card transition-all duration-300 hover:scale-[1.01] hover:border-primary-200/20 hover:shadow-card-hover;
+  }
+
+  .search-input {
+    @apply w-full max-w-lg rounded-full border border-white/10 bg-white/5 px-5 py-3 text-gray-200 placeholder:text-gray-500 transition-all duration-200 focus:border-primary-200/30 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary-200/20;
+  }
+
+  .btn-highlight {
+    @apply inline-flex items-center rounded-full bg-highlight px-5 py-2.5 text-sm font-semibold text-gray-900 transition-all duration-200 hover:scale-105 hover:bg-yellow-300 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-gray-300 transition-all duration-200 hover:border-white/20 hover:text-white;
+  }
 }
